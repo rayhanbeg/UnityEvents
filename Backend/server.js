@@ -10,6 +10,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+cors({
+    origin: ['http://localhost:5173', 'https://unity-events.vercel.app'],
+    credentials: true,
+});
+
 const MONGO_URI = process.env.MONGO_URI;
  async function connectDB() {
     try {

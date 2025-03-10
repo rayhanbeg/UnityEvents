@@ -8,21 +8,23 @@ const Events = () => {
   const [filter, setFilter] = useState('All');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('https://unity-events-backend.vercel.app/api/events');
+        const response = await axios.get(`${API_BASE_URL}/events`);
         setEvents(response.data);
       } catch (err) {
         console.error('Error fetching events:', err);
       }
     };
     fetchEvents();
-  }, []);
+  }, [API_BASE_URL]);
 
   const addEvent = async (newEvent) => {
     try {
-      const response = await axios.post('https://unity-events-backend.vercel.app/api/events', newEvent);
+      const response = await axios.post(`${API_BASE_URL}/events`, newEvent);
       setEvents([...events, response.data]);
       setIsModalOpen(false);
     } catch (err) {
@@ -32,7 +34,7 @@ const Events = () => {
 
   const deleteEvent = async (id) => {
     try {
-      await axios.delete(`https://unity-events-backend.vercel.app/api/events/${id}`);
+      await axios.delete(`${API_BASE_URL}/events/${id}`);
       setEvents(events.filter(event => event._id !== id));
     } catch (err) {
       console.error('Error deleting event:', err);
