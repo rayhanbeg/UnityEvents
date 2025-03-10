@@ -11,7 +11,7 @@ const Events = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/events');
+        const response = await axios.get('https://unity-events-backend.vercel.app/api/events');
         setEvents(response.data);
       } catch (err) {
         console.error('Error fetching events:', err);
@@ -22,7 +22,7 @@ const Events = () => {
 
   const addEvent = async (newEvent) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/events', newEvent);
+      const response = await axios.post('https://unity-events-backend.vercel.app/api/events', newEvent);
       setEvents([...events, response.data]);
       setIsModalOpen(false);
     } catch (err) {
@@ -32,7 +32,7 @@ const Events = () => {
 
   const deleteEvent = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/events/${id}`);
+      await axios.delete(`https://unity-events-backend.vercel.app/api/events/${id}`);
       setEvents(events.filter(event => event._id !== id));
     } catch (err) {
       console.error('Error deleting event:', err);
